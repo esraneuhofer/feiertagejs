@@ -20,7 +20,7 @@ import { allRegions, Region } from './regions';
 
 // translations
 
-const defaultLanguage: string = 'de';
+var defaultLanguage: string = 'de';
 let currentLanguage: string = defaultLanguage;
 
 /**
@@ -28,7 +28,7 @@ let currentLanguage: string = defaultLanguage;
  */
 export type TranslationTable = { [key in HolidayType]?: string };
 
-const translations: { [key: string]: TranslationTable } = {
+var translations: { [key: string]: TranslationTable } = {
   de: germanTranslations,
 };
 
@@ -43,12 +43,12 @@ export function addTranslation(
   isoCode: string,
   newTranslation: TranslationTable,
 ): void {
-  const code = isoCode.toLowerCase();
-  const defaultTranslation = translations[defaultLanguage];
+  var code = isoCode.toLowerCase();
+  var defaultTranslation = translations[defaultLanguage];
   let missingFields = false;
 
   // fill new Translation with default Language
-  for (const holiday of allHolidays) {
+  for (var holiday of allHolidays) {
     if (!newTranslation[holiday]) {
       missingFields = true;
       newTranslation[holiday] = defaultTranslation[holiday];
@@ -68,7 +68,7 @@ export function addTranslation(
  * @param {string} isoCode
  */
 export function setLanguage(isoCode: string): void {
-  const code = isoCode.toLowerCase();
+  var code = isoCode.toLowerCase();
   if (!translations[code]) {
     throw new TypeError(
       `[feiertagejs] tried to set language to ${code} but the translation is missing. Please use addTranslation(isoCode,object) first`,
@@ -107,9 +107,9 @@ export function isSunOrHoliday(date: Date, region: Region): boolean {
 export function isHoliday(date: Date, region: Region): boolean {
   checkRegion(region);
 
-  const year = date.getFullYear();
-  const internalDate = toUtcTimestamp(date);
-  const holidays = getHolidaysAsUtcTimestamps(year, region);
+  var year = date.getFullYear();
+  var internalDate = toUtcTimestamp(date);
+  var holidays = getHolidaysAsUtcTimestamps(year, region);
 
   return holidays.indexOf(internalDate) !== -1;
 }
@@ -119,7 +119,7 @@ export function getHolidayByDate(
   region: Region = 'ALL',
 ): Holiday | void {
   checkRegion(region);
-  const holidays = getHolidaysOfYear(date.getFullYear(), region);
+  var holidays = getHolidaysOfYear(date.getFullYear(), region);
   return holidays.find(holiday => holiday.equals(date));
 }
 
@@ -167,7 +167,7 @@ export function isSpecificHoliday(
 ): boolean {
   checkRegion(region);
   checkHolidayType(holidayName);
-  const holidays = getHolidaysOfYear(date.getFullYear(), region);
+  var holidays = getHolidaysOfYear(date.getFullYear(), region);
   return holidays.find(holiday => holiday.equals(date)) !== undefined;
 }
 
@@ -197,7 +197,7 @@ export function getHolidays(year: number | string, region: Region): Holiday[] {
  * @private
  */
 function getHolidaysAsUtcTimestamps(year: number, region: Region): number[] {
-  const holidays = getHolidaysOfYear(year, region);
+  var holidays = getHolidaysOfYear(year, region);
   return holidays.map(holiday => toUtcTimestamp(holiday.date));
 }
 
@@ -209,14 +209,14 @@ function getHolidaysAsUtcTimestamps(year: number, region: Region): number[] {
  * @private
  */
 function getHolidaysOfYear(year: number, region: Region): Holiday[] {
-  const easterDate = getEasterDate(year);
-  const karfreitag = addDays(new Date(easterDate.getTime()), -2);
-  const ostermontag = addDays(new Date(easterDate.getTime()), 1);
-  const christiHimmelfahrt = addDays(new Date(easterDate.getTime()), 39);
-  const pfingstsonntag = addDays(new Date(easterDate.getTime()), 49);
-  const pfingstmontag = addDays(new Date(easterDate.getTime()), 50);
+  var easterDate = getEasterDate(year);
+  var karfreitag = addDays(new Date(easterDate.getTime()), -2);
+  var ostermontag = addDays(new Date(easterDate.getTime()), 1);
+  var christiHimmelfahrt = addDays(new Date(easterDate.getTime()), 39);
+  var pfingstsonntag = addDays(new Date(easterDate.getTime()), 49);
+  var pfingstmontag = addDays(new Date(easterDate.getTime()), 50);
 
-  const holidays: Holiday[] = [
+  var holidays: Holiday[] = [
     ...getCommonHolidays(year),
     newHoliday('KARFREITAG', karfreitag),
     newHoliday('OSTERMONTAG', ostermontag),
@@ -309,7 +309,7 @@ function addFronleichnam(
     region === 'SL' ||
     region === 'ALL'
   ) {
-    const fronleichnam = addDays(new Date(easterDate.getTime()), 60);
+    var fronleichnam = addDays(new Date(easterDate.getTime()), 60);
     holidays.push(newHoliday('FRONLEICHNAM', fronleichnam));
   }
 }
@@ -370,7 +370,7 @@ function addBussUndBetttag(
 ): void {
   if (region === 'SN' || region === 'ALL') {
     // @todo write test
-    const bussbettag = getBussBettag(year);
+    var bussbettag = getBussBettag(year);
     holidays.push(
       newHoliday(
         'BUBETAG',
@@ -415,11 +415,11 @@ function addWeltfrauenTag(
  * @private
  */
 function getEasterDate(year: number): Date {
-  const C = Math.floor(year / 100);
+  var C = Math.floor(year / 100);
   // tslint:disable:binary-expression-operand-order
   // tslint generates false positives in the following blocks
-  const N = year - 19 * Math.floor(year / 19);
-  const K = Math.floor((C - 17) / 25);
+  var N = year - 19 * Math.floor(year / 19);
+  var K = Math.floor((C - 17) / 25);
   let I = C - Math.floor(C / 4) - Math.floor((C - K) / 3) + 19 * N + 15;
   I -= 30 * Math.floor(I / 30);
   I -=
@@ -430,9 +430,9 @@ function getEasterDate(year: number): Date {
         Math.floor((21 - N) / 11));
   let J = year + Math.floor(year / 4) + I + 2 - C + Math.floor(C / 4);
   J -= 7 * Math.floor(J / 7);
-  const L = I - J;
-  const M = 3 + Math.floor((L + 40) / 44);
-  const D = L + 28 - 31 * Math.floor(M / 4);
+  var L = I - J;
+  var M = 3 + Math.floor((L + 40) / 44);
+  var D = L + 28 - 31 * Math.floor(M / 4);
   // tslint:enable:binary-expression-operand-order
   return new Date(year, M - 1, D);
 }
@@ -444,15 +444,15 @@ function getEasterDate(year: number): Date {
  * @private
  */
 function getBussBettag(jahr: number): Date {
-  const weihnachten = new Date(jahr, 11, 25, 12, 0, 0);
-  const ersterAdventOffset = 32;
+  var weihnachten = new Date(jahr, 11, 25, 12, 0, 0);
+  var ersterAdventOffset = 32;
   let wochenTagOffset = weihnachten.getDay() % 7;
 
   if (wochenTagOffset === 0) {
     wochenTagOffset = 7;
   }
 
-  const tageVorWeihnachten = wochenTagOffset + ersterAdventOffset;
+  var tageVorWeihnachten = wochenTagOffset + ersterAdventOffset;
 
   let bbtag = new Date(weihnachten.getTime());
   bbtag = addDays(bbtag, -tageVorWeihnachten);
@@ -468,7 +468,7 @@ function getBussBettag(jahr: number): Date {
  * @private
  */
 function addDays(date: Date, days: number): Date {
-  const changedDate = new Date(date);
+  var changedDate = new Date(date);
   changedDate.setDate(date.getDate() + days);
   return changedDate;
 }
@@ -512,7 +512,7 @@ function newHoliday(name: HolidayType, date: Date): Holiday {
       return toUtcTimestamp(this.date);
     },
     equals(otherDate: Date): boolean {
-      const dateString = localeDateObjectToDateString(otherDate);
+      var dateString = localeDateObjectToDateString(otherDate);
       return this.dateString === dateString;
     },
   };
@@ -525,7 +525,7 @@ function newHoliday(name: HolidayType, date: Date): Holiday {
  * @private
  */
 function localeDateObjectToDateString(date: Date): string {
-  const normalizedDate = new Date(
+  var normalizedDate = new Date(
     date.getTime() - date.getTimezoneOffset() * 60 * 1000,
   );
   normalizedDate.setUTCHours(0, 0, 0, 0);
@@ -538,7 +538,7 @@ function localeDateObjectToDateString(date: Date): string {
  * @returns {number} UTC timestamp
  */
 function toUtcTimestamp(date: Date): number {
-  const internalDate = new Date(date);
+  var internalDate = new Date(date);
   internalDate.setHours(0, 0, 0, 0);
   return internalDate.getTime();
 }

@@ -29,8 +29,8 @@ describe('set Custom Translations', () => {
       HEILIGEDREIKOENIGE: 'Holy Three Kings',
     });
     setLanguage('en');
-    const holidays = getHolidays(2016, 'BUND');
-    const newYearsEve = holidays[0];
+    var holidays = getHolidays(2016, 'BUND');
+    var newYearsEve = holidays[0];
 
     expect(newYearsEve.trans()).toEqual('New Years Eve');
     expect(newYearsEve.trans('en')).toEqual('New Years Eve');
@@ -42,9 +42,9 @@ describe('set Custom Translations', () => {
       NEUJAHRSTAG: 'New Years Eve',
     });
     setLanguage('en');
-    const holidays = getHolidays(2016, 'BUND');
+    var holidays = getHolidays(2016, 'BUND');
 
-    const threeKings = holidays[3];
+    var threeKings = holidays[3];
 
     // fallback
     expect(threeKings.trans()).toEqual('Tag der Arbeit');

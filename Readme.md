@@ -31,7 +31,7 @@ Please find here some examples and full api [here](docs.md).
 ```javascript
 import { getHolidays, isHoliday, isSpecificHoliday } from 'feiertagejs';
 
-const today = new Date();
+var today = new Date();
 
 console.log(isHoliday(today, 'BW'));
 // probably false, because you are working ;)
@@ -41,7 +41,7 @@ console.log(isSpecificHoliday(today, 'CHRISTIHIMMELFAHRT','ALL'));
 
 // get all holiday for a single year: getHolidays()
 // returns an array of "Holiday" Objects. Please see the docs.md for all properties.
-const holidays2018 = getHolidays('2018','BUND');
+var holidays2018 = getHolidays('2018','BUND');
 
 
 console.log('date', holidays2018[0].date); // = Date("2018-01-01");

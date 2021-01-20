@@ -20,7 +20,7 @@ export type Region =
   | 'AUGSBURG'
   | 'ALL';
 
-export const allRegions: Region[] = [
+export var allRegions: Region[] = [
   'BW',
   'BY',
   'BE',

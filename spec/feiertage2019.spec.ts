@@ -7,7 +7,7 @@ import { getHolidayByDate } from '../src/feiertage';
  */
 describe('get Specific holiday by Date', () => {
   it('find WELTKINDERTAG 2019', () => {
-    const weltkindertag = new Date(2020, 8, 20);
+    var weltkindertag = new Date(2020, 8, 20);
     expect(getHolidayByDate(weltkindertag, 'TH')).toEqual(
       expect.objectContaining({
         name: 'WELTKINDERTAG',
@@ -16,7 +16,7 @@ describe('get Specific holiday by Date', () => {
   });
 
   it('find Weltfrauentag >2019 8th or March in Berlin', () => {
-    const WELTFRAUENTAG = new Date(2020, 2, 8);
+    var WELTFRAUENTAG = new Date(2020, 2, 8);
     expect(getHolidayByDate(WELTFRAUENTAG, 'BE')).toEqual(
       expect.objectContaining({
         name: 'WELTFRAUENTAG',
@@ -24,21 +24,21 @@ describe('get Specific holiday by Date', () => {
     );
   });
   it('find Weltfrauentag >2019 8th or March should not be a holiday in BY', () => {
-    const WELTFRAUENTAG = new Date(2020, 2, 8);
+    var WELTFRAUENTAG = new Date(2020, 2, 8);
     expect(getHolidayByDate(WELTFRAUENTAG, 'BY')).toEqual(undefined);
   });
   it('find Weltfrauentag <2019 should not be a holiday in Berlin', () => {
-    const WELTFRAUENTAG = new Date(2016, 2, 8);
+    var WELTFRAUENTAG = new Date(2016, 2, 8);
     expect(getHolidayByDate(WELTFRAUENTAG, 'BE')).toEqual(undefined);
   });
   it('find Weltfrauentag <2019 should not be a holiday in BW', () => {
-    const WELTFRAUENTAG = new Date(2016, 2, 8);
+    var WELTFRAUENTAG = new Date(2016, 2, 8);
     expect(getHolidayByDate(WELTFRAUENTAG, 'BW')).toEqual(undefined);
   });
 
   // because: https://github.com/sfakir/feiertagejs/issues/33
   it('find Fronleichname in 2019 8th or March in Bacvaria', () => {
-    const FRONLEICHNAM = new Date(2019, 5, 20); // 20.6.2019
+    var FRONLEICHNAM = new Date(2019, 5, 20); // 20.6.2019
 
     expect(getHolidayByDate(FRONLEICHNAM, 'BY')).toEqual(
       expect.objectContaining({
@@ -54,7 +54,7 @@ describe('get Specific holiday by Date', () => {
    * Bremen, Hamburg, Niedersachsen und Schleswig-Holstein.
    */
   it('find Reformationstag >2019 31. Oktober in Bremen', () => {
-    const REFORMANTIONSTAG = new Date(2020, 9, 31);
+    var REFORMANTIONSTAG = new Date(2020, 9, 31);
 
     expect(getHolidayByDate(REFORMANTIONSTAG, 'NI')).toEqual(
       expect.objectContaining({
